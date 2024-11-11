@@ -63,7 +63,6 @@ public class DashBoardController {
         try{
             String itemCode = (String) request.get("itemCode");
             displayItemsDto = dashBoardService.getSpecificDetail(itemCode);
-            System.out.println("RETURN DATA: "+displayItemsDto);
             logger.info("Dashboard Controller End Point To Get Specific Item For Item Code: "+itemCode);
         } catch (Exception ex){
             logger.error(ex.getMessage());
@@ -84,7 +83,6 @@ public class DashBoardController {
         String pricePerItem = (String) request.get("pricePerItem");
         String material = (String) request.get("material");
         String materialType = (String) request.get("materialType");
-        System.out.println("ITEM NAME: "+itemName+ " ITEMTYPE: "+itemType+" BUYER: "+newBuyerSearch+" PRICE PER ITEM: "+pricePerItem+" MATERIAL: "+material+" BUYER: "+buyer);
         try{
             logger.info("Dashboard Controller End Point To Store Data To Database");
             responseDto = dashBoardService.processForAdd(itemName, itemType, buyer, newBuyerSearch, pricePerItem, material, materialType);

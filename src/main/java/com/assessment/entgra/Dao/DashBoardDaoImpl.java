@@ -74,7 +74,6 @@ public class DashBoardDaoImpl implements DashBoardDao{
                 buyerDtos.add(buyerDto);
             }
             sql.setLength(0);
-
             logger.info("Dashboard Dao To Get All Drop Down Details From Buyer");
         } catch (Exception ex) {
             logger.error(ex.getMessage());
@@ -122,17 +121,6 @@ public class DashBoardDaoImpl implements DashBoardDao{
         return displayItemsDto;
     }
 
-
-
-
-
-
-
-
-
-
-
-
     @Override
     public String addItem(String itemCode, String itemName, String material, String materialType, String buyer, String onHand) {
         LocalDateTime dateTime = LocalDateTime.now();
@@ -144,12 +132,11 @@ public class DashBoardDaoImpl implements DashBoardDao{
             sql.append("VALUES ");
             sql.append("(?, ?, ?, ?, ?, ?, ?);");
             int rawSet = jdbcTemplate.update(sql.toString(), itemCode, itemName, material, materialType, buyer, onHand, dateTime);
-
             if(rawSet>0){
                 daoResponse = "ok";
             }
             sql.setLength(0);
-            logger.info("");
+            logger.info("Dash Board Dao Class To Add Items To items Table ");
         } catch (Exception ex){
             logger.error(ex.getMessage());
         }
@@ -166,12 +153,11 @@ public class DashBoardDaoImpl implements DashBoardDao{
             sql.append("VALUES ");
             sql.append("(?, ?, ?);");
             int rawSet = jdbcTemplate.update(sql.toString(), itemCode, pricePerItem, price);
-
             if(rawSet>0){
                 daoResponse = "ok";
             }
             sql.setLength(0);
-            logger.info("");
+            logger.info("Dash Board Dao To Add Price To item_prices Table");
         } catch (Exception ex){
             logger.error(ex.getMessage());
         }
@@ -188,7 +174,6 @@ public class DashBoardDaoImpl implements DashBoardDao{
             sql.append("VALUES ");
             sql.append("(?, ?);");
             int rawSet = jdbcTemplate.update(sql.toString(), buyerId, buyer);
-
             if(rawSet>0){
                 daoResponse = "ok";
             }
@@ -199,14 +184,6 @@ public class DashBoardDaoImpl implements DashBoardDao{
         }
         return daoResponse;
     }
-
-
-
-
-
-
-
-
 
     @Override
     public String updateState(String itemCode, String state, Double newPrice) {
