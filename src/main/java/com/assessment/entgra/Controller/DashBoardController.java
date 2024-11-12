@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -83,9 +84,10 @@ public class DashBoardController {
         String pricePerItem = (String) request.get("pricePerItem");
         String material = (String) request.get("material");
         String materialType = (String) request.get("materialType");
+        String userId = (String) request.get("userId");
         try{
             logger.info("Dashboard Controller End Point To Store Data To Database");
-            responseDto = dashBoardService.processForAdd(itemName, itemType, buyer, newBuyerSearch, pricePerItem, material, materialType);
+            responseDto = dashBoardService.processForAdd(itemName, itemType, buyer, newBuyerSearch, pricePerItem, material, materialType, userId);
         } catch (Exception ex){
             logger.error(ex.getMessage());
         }

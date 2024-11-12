@@ -122,16 +122,15 @@ public class DashBoardDaoImpl implements DashBoardDao{
     }
 
     @Override
-    public String addItem(String itemCode, String itemName, String material, String materialType, String buyer, String onHand) {
-        LocalDateTime dateTime = LocalDateTime.now();
+    public String addItem(String itemCode, String itemName, String material, String materialType, String buyer, String onHand, String userId, LocalDateTime today) {
         StringBuilder sql = new StringBuilder();
         String daoResponse = "";
         try {
             sql.append("INSERT INTO items ");
-            sql.append("(item_code, item_name, material_name, material_type, buyer_id, item_status, created_at) ");
+            sql.append("(item_code, item_name, material_name, material_type, buyer_id, item_status, created_at, created_by) ");
             sql.append("VALUES ");
-            sql.append("(?, ?, ?, ?, ?, ?, ?);");
-            int rawSet = jdbcTemplate.update(sql.toString(), itemCode, itemName, material, materialType, buyer, onHand, dateTime);
+            sql.append("(?, ?, ?, ?, ?, ?, ?, ?);");
+            int rawSet = jdbcTemplate.update(sql.toString(), itemCode, itemName, material, materialType, buyer, onHand, today, userId);
             if(rawSet>0){
                 daoResponse = "ok";
             }

@@ -58,7 +58,8 @@ public class DashBoardServiceImpl implements DashBoardService{
     }
 
     @Override
-    public ResponseDto processForAdd(String itemName, String itemType, String buyer, String newBuyerSearch, String pricePerItem, String material, String materialType) {
+    public ResponseDto processForAdd(String itemName, String itemType, String buyer, String newBuyerSearch, String pricePerItem, String material, String materialType, String userId) {
+        LocalDateTime today = LocalDateTime.now();
         ResponseDto responseDto = new ResponseDto();
         String daoResponseTwo = "";
         String daoResponse = "";
@@ -74,7 +75,7 @@ public class DashBoardServiceImpl implements DashBoardService{
                     String buyerId = buyer+date;
                     daoResponseThree = dashBoardDao.addNewBuyer(buyerId, buyer);
                     if(daoResponseThree.equals("ok")){
-                        daoResponse = dashBoardDao.addItem(itemCode, itemName, material, materialType, buyerId, "ON HAND");
+                        daoResponse = dashBoardDao.addItem(itemCode, itemName, material, materialType, buyerId, "ON HAND", userId, today);
                         if(daoResponse.equals("ok")){
                             daoResponseTwo = dashBoardDao.addPrice(itemCode, pricePerItem, price);
                             if(daoResponseTwo.equals("ok")){
@@ -89,15 +90,15 @@ public class DashBoardServiceImpl implements DashBoardService{
                         responseDto.status = "Unsuccessfully";
                     }
                 } else {
-                    String buyerId = "";
+                    String buyerId = null;
                     List<BuyerDto> buyerDto = dashBoardDao.getDropDown();
                     for(BuyerDto buyerDto1 : buyerDto){
-                        if(buyerDto1.getBuyerName().trim().equals(buyer.trim())){
+                        if(buyerDto1.getBuyerId().trim().equals(buyer.trim())){
                             buyerId = buyerDto1.getBuyerId();
                             break;
                         }
                     }
-                    daoResponse = dashBoardDao.addItem(itemCode, itemName, material, materialType, buyerId, "ON HAND");
+                    daoResponse = dashBoardDao.addItem(itemCode, itemName, material, materialType, buyerId, "ON HAND", userId, today);
                     if(daoResponse.equals("ok")){
                         daoResponseTwo = dashBoardDao.addPrice(itemCode, pricePerItem, price);
                         if(daoResponseTwo.equals("ok")){
@@ -122,7 +123,7 @@ public class DashBoardServiceImpl implements DashBoardService{
                 if(!buyerCheck){
                     dashBoardDao.addNewBuyer("B0", "Own Product");
                 }
-                daoResponse = dashBoardDao.addItem(itemCode, itemName, material, materialType, "B0", "ON HAND");
+                daoResponse = dashBoardDao.addItem(itemCode, itemName, material, materialType, "B0", "ON HAND", userId, today);
                 if(daoResponse.equals("ok")){
                     daoResponseTwo = dashBoardDao.addPrice(itemCode, pricePerItem, price);
                         if(daoResponseTwo.equals("ok")){
