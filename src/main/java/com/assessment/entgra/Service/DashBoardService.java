@@ -11,7 +11,7 @@ public interface DashBoardService {
 
     public List<DisplayItemsDto> getSpecificDetail(String itemCode);
 
-    public ResponseDto processForAdd(String itemName, String itemType, String buyer, String newBuyerSearch, String pricePerItem, String material, String materialType, String userId);
+    public ResponseDto processForAdd(String itemName, String itemType, String buyer, String newBuyerSearch, String pricePerItem,String  percentage, String material, String materialType, String userId);
 
     public ResponseDto editState(String userId, String state);
 

@@ -58,7 +58,7 @@ public class DashBoardServiceImpl implements DashBoardService{
     }
 
     @Override
-    public ResponseDto processForAdd(String itemName, String itemType, String buyer, String newBuyerSearch, String pricePerItem, String material, String materialType, String userId) {
+    public ResponseDto processForAdd(String itemName, String itemType, String buyer, String newBuyerSearch, String pricePerItem, String percentage, String material, String materialType, String userId) {
         LocalDateTime today = LocalDateTime.now();
         ResponseDto responseDto = new ResponseDto();
         String daoResponseTwo = "";
@@ -69,9 +69,9 @@ public class DashBoardServiceImpl implements DashBoardService{
             String itemCode = itemName.substring(0,2)+material.substring(0,2)+materialType.substring(0,2)+date;
             Double price = 0.0;
             if(itemType.equals("buy")){
-                price = Double.parseDouble(pricePerItem) + Double.parseDouble(pricePerItem)*(30.0/100);
+                price = Double.parseDouble(pricePerItem) + Double.parseDouble(pricePerItem)*(Double.parseDouble(percentage)/100);
                 if(newBuyerSearch.equals("1")){
-                    String buyerId = buyer+date;
+                    String buyerId = buyer.trim()+date;
                     daoResponseThree = dashBoardDao.addNewBuyer(buyerId, buyer);
                     if(daoResponseThree.equals("ok")){
                         daoResponse = dashBoardDao.addItem(itemCode, itemName, material, materialType, buyerId, "ON HAND", userId, today);

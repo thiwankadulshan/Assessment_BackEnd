@@ -73,7 +73,6 @@ public class DashBoardController {
 
     @PostMapping("/add")
     public ResponseEntity addItem(@Valid @RequestBody Map<String, String> request, BindingResult result){
-        System.out.println("request is: "+request);
         if(result.hasErrors()){
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
@@ -83,12 +82,13 @@ public class DashBoardController {
         String buyer = (String) request.get("supplierName");
         String newBuyerSearch = (String) request.get("newBuyerCheck");
         String pricePerItem = (String) request.get("pricePerItem");
+        String percentage = (String) request.get("percentage");
         String material = (String) request.get("material");
         String materialType = (String) request.get("materialType");
         String userId = (String) request.get("userId");
         try{
             logger.info("Dashboard Controller End Point To Store Data To Database");
-            responseDto = dashBoardService.processForAdd(itemName, itemType, buyer, newBuyerSearch, pricePerItem, material, materialType, userId);
+            responseDto = dashBoardService.processForAdd(itemName, itemType, buyer, newBuyerSearch, pricePerItem, percentage, material, materialType, userId);
         } catch (Exception ex){
             logger.error(ex.getMessage());
         }

@@ -96,12 +96,12 @@ class DashBoardControllerTest {
         ResponseDto responseDto = new ResponseDto();
         responseDto.setStatus("Success");
         String status = responseDto.getStatus();
-        when(dashBoardService.processForAdd("trouser", "buy", "signature", "1", "3000", "trouser_clothes", "linen", "userOne")).thenReturn(responseDto);
+        when(dashBoardService.processForAdd("trouser", "buy", "signature", "1", "3000", "30", "trouser_clothes", "linen", "userOne")).thenReturn(responseDto);
 
         mockMvc.perform(post("/dashboard/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"itemName\":\"trouser\",\"itemType\":\"buy\",\"supplierName\":\"signature\"," +
-                                "\"newBuyerCheck\":\"1\",\"pricePerItem\":\"3000\",\"material\":\"trouser_clothes\",\"materialType\":\"linen\", \"userId\":\"userOne\"}"))
+                                "\"newBuyerCheck\":\"1\",\"pricePerItem\":\"3000\",\"percentage\":\"30\",\"material\":\"trouser_clothes\",\"materialType\":\"linen\", \"userId\":\"userOne\"}"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.status").value("Success"));
