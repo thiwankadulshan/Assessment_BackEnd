@@ -66,8 +66,7 @@ public class DashBoardServiceImpl implements DashBoardService{
         String daoResponseThree = "";
         String date = LocalDateTime.now().toString();
         try {
-//            String itemCode = itemName+buyer+material+materialType+date;
-            String itemCode = itemName+buyer+material;
+            String itemCode = itemName.substring(0,2)+material.substring(0,2)+materialType.substring(0,2)+date;
             Double price = 0.0;
             if(itemType.equals("buy")){
                 price = Double.parseDouble(pricePerItem) + Double.parseDouble(pricePerItem)*(30.0/100);

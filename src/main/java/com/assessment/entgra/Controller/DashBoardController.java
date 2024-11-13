@@ -73,6 +73,7 @@ public class DashBoardController {
 
     @PostMapping("/add")
     public ResponseEntity addItem(@Valid @RequestBody Map<String, String> request, BindingResult result){
+        System.out.println("request is: "+request);
         if(result.hasErrors()){
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
